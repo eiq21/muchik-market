@@ -1,0 +1,49 @@
+version: "3.7"
+
+networks:
+  muchik-nw:
+    name: muchik-nw
+    driver: bridge
+
+services:
+  securityapi:
+    image: security-api:1.0.0
+    container_name: ${DOCKER_REGISTRY-}securityapi
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5000:80
+    networks:
+      - muchik-nw
+
+  paymentapi:
+    image: payment-api:1.0.0
+    container_name: ${DOCKER_REGISTRY-}paymentapi
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7000:80
+    networks:
+      - muchik-nw
+
+  saleapi:
+    image: sale-api:1.0.0
+    container_name: ${DOCKER_REGISTRY-}saleapi
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 9000:80
+    networks:
+      - muchik-nw
