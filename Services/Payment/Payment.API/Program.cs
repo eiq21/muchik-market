@@ -1,3 +1,5 @@
+using EventBus;
+using EventBus.Settings;
 using Payment.API;
 using Payment.Application;
 using Payment.Infrastructure;
@@ -6,7 +8,11 @@ using Steeltoe.Discovery.Client;
 var builder = WebApplication.CreateBuilder(args);
 {
     // builder.AddConfigServer();
-    builder.Services.AddDiscoveryClient();
+    // builder.Services.AddDiscoveryClient();
+
+
+    builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
+    builder.Services.AddRabbitServices();
 
     builder.Services
      .AddPaymentPresentation()

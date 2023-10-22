@@ -49,19 +49,19 @@ public class InvoicesController : ControllerBase
         return Ok(result.Value);
     }
 
-    [HttpPatch("pay/{id}")]
-    public async Task<IActionResult> Pay(
-       Guid id,
-       CancellationToken cancellationToken
-   )
-    {
-        var query = new PayInvoiceCommand(id);
+   // [HttpPatch("pay/{id}")]
+   // public async Task<IActionResult> Pay(
+   //    Guid id,
+   //    CancellationToken cancellationToken
+   //)
+   // {
+   //     var query = new PayInvoiceCommand(id);
 
-        var result = await _sender.Send(query, cancellationToken);
+   //     var result = await _sender.Send(query, cancellationToken);
 
-        if (result.IsFailure)
-            return BadRequest(result.Error);
+   //     if (result.IsFailure)
+   //         return BadRequest(result.Error);
 
-        return NoContent();
-    }
+   //     return NoContent();
+   // }
 }

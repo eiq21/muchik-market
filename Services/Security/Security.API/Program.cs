@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 {
     // builder.AddConfigServer();
     builder.Services.AddDiscoveryClient();
+
     builder.Services
     .AddSecurityPresentation()
     .AddSecurityApplicacion()

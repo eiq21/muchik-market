@@ -1,5 +1,7 @@
+using EventBus;
 using Payment.Application.Clock;
 using Payment.Application.Core.Messaging;
+using Payment.Application.Features.Payments.Events;
 using Payment.Domain.Abstractions;
 using Payment.Domain.Payments;
 
@@ -9,14 +11,17 @@ internal class CreatePaymentCommandHandler : ICommandHandler<CreatePaymentComman
     private readonly IPaymentRepository _paymentRepository;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEventBus _eventBus;
     public CreatePaymentCommandHandler(
         IUnitOfWork unitOfWork,
         IPaymentRepository paymentRepository,
-        IDateTimeProvider dateTimeProvider)
+        IDateTimeProvider dateTimeProvider,
+        IEventBus eventBus)
     {
         _unitOfWork = unitOfWork;
         _paymentRepository = paymentRepository;
         _dateTimeProvider = dateTimeProvider;
+        _eventBus = eventBus;
     }
     public async Task<Result> Handle(
         CreatePaymentCommand request,
@@ -30,6 +35,11 @@ internal class CreatePaymentCommandHandler : ICommandHandler<CreatePaymentComman
         _paymentRepository.Add(paymentResult.Value);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+        _eventBus.Publish(new PayedInvoiceEvent
+        {
+            InvoiceId = paymentResult.Value.InvoiceId,
+            Amount = paymentResult.Value.Amount
+        });
 
         return Result.Success();
     }
