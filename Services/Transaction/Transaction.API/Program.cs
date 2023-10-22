@@ -1,25 +1,31 @@
+using Transaction.API;
+using Transaction.Application;
+using Transaction.Infrastructure;
+using Transaction.Infrastructure.Persistence.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+
+    builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+
+    builder.Services
+      .AddTransactionPresentation()
+      .AddTransactionApplication()
+      .AddTransactionInfrastructure(builder.Configuration);
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
+var app = builder.Build();
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.MapControllers();
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
 
-app.Run();

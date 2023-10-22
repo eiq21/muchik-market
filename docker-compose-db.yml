@@ -56,22 +56,22 @@ services:
       - mysql-local-db:/var/lib/mysql
     networks:
       - muchik-nw
-  # mongodb-local:
-  #   image: mongo:latest
-  #   container_name: ${DOCKER_REGISTRY-}mongo-local
-  #   mem_limit: 1536m
-  #   mem_reservation: 128M
-  #   cpus: 1.0
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - mongo-local-db:/data/db
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=admin
-  #     - MONGO_INITDB_ROOT_PASSWORD=P@ssw0rd1234
-  #     - MONGO_INITDB_DATABASE=Transaction
-  #   networks:
-  #     - muchik-nw
+  mongodb-local:
+    image: mongo:latest
+    container_name: ${DOCKER_REGISTRY-}mongo-local
+    mem_limit: 1536m
+    mem_reservation: 128M
+    cpus: 1.0
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-local-db:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=Passw0rd1234
+      - MONGO_INITDB_DATABASE=Transactions
+    networks:
+      - muchik-nw
 
 volumes:
   mssql-local-db:
@@ -80,5 +80,5 @@ volumes:
     name: ${DOCKER_REGISTRY-}postgres-local
   mysql-local-db:
     name: ${DOCKER_REGISTRY-}mysql-local
-  # mongo-local-db:
-  #   name: ${DOCKER_REGISTRY-}mongo-local
+  mongo-local-db:
+    name: ${DOCKER_REGISTRY-}mongo-local
