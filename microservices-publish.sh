@@ -13,6 +13,7 @@ dotnet publish ./Services/Sale/Sale.API/ --os linux --arch x64
 # dotnet dotnet ef database update --context SaleDbContext --project ./Services/Sale/Sale.Infrastructure/ --startup-project ./Services/Sale/Sale.API/
 echo "Publish Sale API successfully..."
 
+
 echo "Generate publish Transaction API..."
 dotnet publish ./Services/Transaction/Transaction.API/ --os linux --arch x64
 # dotnet dotnet ef database update --context SaleDbContext --project ./Services/Transaction/Transaction.Infrastructure/ --startup-project ./Services/Transaction/Transaction.API/
