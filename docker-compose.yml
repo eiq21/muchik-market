@@ -47,7 +47,7 @@ services:
       - 9000:80
     networks:
       - muchik-nw
-  
+
   transactionapi:
     image: transaction-api:1.0.0
     container_name: ${DOCKER_REGISTRY-}transactionapi

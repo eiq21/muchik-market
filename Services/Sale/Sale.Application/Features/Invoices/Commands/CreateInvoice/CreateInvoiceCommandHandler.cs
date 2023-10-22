@@ -15,9 +15,8 @@ internal class CreateInvoiceCommandHandler : ICommandHandler<CreateInvoiceComman
         _invoiceRepository = invoiceRepository;
         _unitOfWork = unitOfWork;
     }
-    public async Task<Result> Handle(
-        CreateInvoiceCommand request,
-        CancellationToken cancellationToken)
+
+    public async Task<Result> Handle(CreateInvoiceCommand request, CancellationToken cancellationToken)
     {
         var invoiceResult = Invoice.Create(request.Amount);
 
