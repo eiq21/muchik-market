@@ -44,15 +44,9 @@ services:
 
   rabbitmq:
     container_name: ${DOCKER_REGISTRY-}muchik-bus
-    image: rabbitmq:3-management
-    mem_limit: 256m
-    mem_reservation: 128M
-    cpus: 0.25
+    image: rabbitmq
     ports:
       - 15672:15672
       - 5672:5672
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin
     networks:
       - muchik-nw
