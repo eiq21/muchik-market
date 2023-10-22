@@ -10,7 +10,7 @@
     <ContainerImageTags>1.0.0</ContainerImageTags>
   </PropertyGroup>
   <ItemGroup>
-   <ContainerPort Include="80" type="tcp"/>
+   <ContainerPort Include="80" type="tcp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
@@ -20,6 +20,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.402" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
+    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.2.4" />
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.2.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

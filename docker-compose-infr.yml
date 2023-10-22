@@ -1,0 +1,58 @@
+version: "3.7"
+
+networks:
+  muchik-nw:
+    name: muchik-nw
+    driver: bridge
+
+services:
+  gatewayapi:
+    image: gateway-api:1.0.0
+    container_name: ${DOCKER_REGISTRY-}muchik-gateway
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 1000:80
+    networks:
+      - muchik-nw
+  config-server:
+    container_name: ${DOCKER_REGISTRY-}muchik-config
+    image: steeltoeoss/config-server
+    command: --spring.profiles.active=dev --spring.cloud.config.server.git.uri=https://github.com/eiq21/microservices-settings.git
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    ports:
+      - 8888:8888
+    networks:
+      - muchik-nw
+  consul-server:
+    container_name: ${DOCKER_REGISTRY-}muchik-discovery
+    image: consul:1.14
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    ports:
+      - 8500:8500
+      - 8600:8600/udp
+    networks:
+      - muchik-nw
+
+  rabbitmq:
+    container_name: ${DOCKER_REGISTRY-}muchik-bus
+    image: rabbitmq:3-management
+    mem_limit: 256m
+    mem_reservation: 128M
+    cpus: 0.25
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      - muchik-nw

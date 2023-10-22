@@ -13,7 +13,7 @@ namespace Payment.API.Controllers.Payments
         {
             _sender = sender;
         }
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(
                 CreatePaymentRequest request,
                 CancellationToken cancellationToken

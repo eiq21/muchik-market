@@ -8,7 +8,7 @@ networks:
 services:
   securityapi:
     image: security-api:1.0.0
-    container_name: ${DOCKER_REGISTRY-}securityapi
+    container_name: ${DOCKER_REGISTRY-}muchik-security
     mem_limit: 256m
     mem_reservation: 128M
     cpus: 0.25
@@ -22,7 +22,7 @@ services:
 
   paymentapi:
     image: payment-api:1.0.0
-    container_name: ${DOCKER_REGISTRY-}paymentapi
+    container_name: ${DOCKER_REGISTRY-}muchik-pay
     mem_limit: 256m
     mem_reservation: 128M
     cpus: 0.25
@@ -36,7 +36,7 @@ services:
 
   saleapi:
     image: sale-api:1.0.0
-    container_name: ${DOCKER_REGISTRY-}saleapi
+    container_name: ${DOCKER_REGISTRY-}muchik-invoices
     mem_limit: 256m
     mem_reservation: 128M
     cpus: 0.25
@@ -47,10 +47,10 @@ services:
       - 9000:80
     networks:
       - muchik-nw
-  
+
   transactionapi:
     image: transaction-api:1.0.0
-    container_name: ${DOCKER_REGISTRY-}transactionapi
+    container_name: ${DOCKER_REGISTRY-}muchik-transaction
     mem_limit: 256m
     mem_reservation: 128M
     cpus: 0.25

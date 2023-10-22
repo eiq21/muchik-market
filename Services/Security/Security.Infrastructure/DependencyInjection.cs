@@ -25,8 +25,7 @@ public static class DependencyInjection
 
         services
         .AddSecurityServicePrivider()
-        .AddSecurityPersistence(configuration)
-        .AddSecurityAuthentication(configuration);
+        .AddSecurityPersistence(configuration);
 
         return services;
     }

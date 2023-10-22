@@ -1,0 +1,55 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/users/{everything_else}",
+      "DownstreamScheme": "http",
+      "UseServiceDiscovery": true,
+      "ServiceName": "muchik-security",
+      "UpstreamPathTemplate": "/security/{everything_else}",
+      "UpstreamHttpMethod": ["GET", "POST", "PUT"]
+    },
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/invoices/{everything_else}",
+      "DownstreamScheme": "http",
+      "UseServiceDiscovery": true,
+      "ServiceName": "muchik-invoices",
+      "UpstreamPathTemplate": "/invoices/{everything_else}",
+      "UpstreamHttpMethod": ["GET", "POST"]
+    },
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/transactions/{everything_else}",
+      "DownstreamScheme": "http",
+      "UseServiceDiscovery": true,
+      "ServiceName": "muchik-transaction",
+      "UpstreamPathTemplate": "/transactions/{everything_else}",
+      "UpstreamHttpMethod": ["GET", "POST"]
+    },
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/payments/{everything_else}",
+      "DownstreamScheme": "http",
+      "UseServiceDiscovery": true,
+      "ServiceName": "muchik-pay",
+      "UpstreamPathTemplate": "/payments/{everything_else}",
+      "UpstreamHttpMethod": ["GET", "POST"]
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "muchik-discovery",
+      "Port": "8500",
+      "Type": "Consul"
+    }
+  }
+}

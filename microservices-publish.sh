@@ -1,3 +1,7 @@
+echo "Generate publish Gateway API..."
+dotnet publish ./ApiGateways/Gateway.API/ --os linux --arch x64
+echo "Publish Gateway API successfully..."
+
 echo "Generate publish Security API..."
 dotnet publish ./Services/Security/Security.API/ --os linux --arch x64
 # dotnet dotnet ef database update --context SecurityDbContext --project ./Services/Security/Security.Infrastructure/ --startup-project ./Services/Security/Security.API/

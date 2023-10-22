@@ -1,9 +1,13 @@
 using Payment.API;
 using Payment.Application;
 using Payment.Infrastructure;
+using Steeltoe.Discovery.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    // builder.AddConfigServer();
+    builder.Services.AddDiscoveryClient();
+
     builder.Services
      .AddPaymentPresentation()
      .AddPaymentApplication()

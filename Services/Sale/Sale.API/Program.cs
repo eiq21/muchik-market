@@ -1,9 +1,13 @@
 using Sale.API;
 using Sale.Application;
 using Sale.Infrastructure;
+using Steeltoe.Discovery.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    // builder.AddConfigServer();
+    builder.Services.AddDiscoveryClient();
+
     builder.Services
     .AddSalePresentation()
     .AddSaleApplicacion()
