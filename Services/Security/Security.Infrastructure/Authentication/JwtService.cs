@@ -29,18 +29,22 @@ internal sealed class JwtProvider : IJwtProvider
                 SecurityAlgorithms.HmacSha256
             );
 
-
+        var header = new JwtHeader(siginingCredentials);
         var claims = new[]{
              new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
              new Claim(JwtRegisteredClaimNames.GivenName, user.Email),
              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 
-        var securityToken = new JwtSecurityToken(
-            issuer: _jwtSettings.Issuer,
-            expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpireMinutes),
-            claims: claims,
-            signingCredentials: siginingCredentials);
+        var payload = new JwtPayload(
+            _jwtSettings.Issuer,
+             _jwtSettings.Audience,
+             claims,
+             _dateTimeProvider.UtcNow,
+             _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpireMinutes)
+             );
+
+        var securityToken = new JwtSecurityToken(header, payload);
 
         return new JwtSecurityTokenHandler().WriteToken(securityToken);
     }

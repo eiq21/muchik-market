@@ -1,10 +1,14 @@
 using Security.API;
 using Security.Infrastructure;
 using Security.Application;
+using Steeltoe.Discovery.Client;
+using Security.API.Middleware;
 using Security.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    // builder.AddConfigServer();
+    builder.Services.AddDiscoveryClient();
     builder.Services
     .AddSecurityPresentation()
     .AddSecurityApplicacion()
@@ -20,9 +24,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
     app.UseCustomExceptionHandler();
-    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
     app.Run();

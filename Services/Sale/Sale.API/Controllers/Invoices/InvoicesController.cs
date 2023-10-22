@@ -16,7 +16,7 @@ public class InvoicesController : ControllerBase
         _sender = sender;
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(
         CreateInvoiceRequest request,
         CancellationToken cancellationToken
@@ -34,7 +34,7 @@ public class InvoicesController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<IActionResult> GetAll(
         CancellationToken cancellationToken
     )

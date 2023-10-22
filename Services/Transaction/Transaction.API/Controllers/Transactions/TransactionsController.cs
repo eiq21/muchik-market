@@ -13,7 +13,7 @@ public class TransactionsController : ControllerBase
     {
         _sender = sender;
     }
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(
             CreateTransactionRequest request,
             CancellationToken cancellationToken
